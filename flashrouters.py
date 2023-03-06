@@ -1,17 +1,10 @@
 
 
 from flask import Blueprint, render_template, request, make_response
-from handlers.name_handler import name_handler;
+
 
 flash = Blueprint('flashrouters', __name__,)
 
-# A decorator used to tell the application
-# which URL is associated function
-# @app.route('/')
-# def hello():
-#    return 'Hi everyone its markiplier here'
-
-# routing the decorator function hello_name
 @flash.route('/home')
 def hello_name():
     return render_template("home.html")
