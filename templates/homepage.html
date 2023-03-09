@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to the Homepage</title>
+</head>
+<body>
+<h1>
+Welcome to Flashcards!
+</h1>
+
+<button onclick="window.location.href='/create';"> Create new flashcard!</button>
+{% if not results %}
+<p> No flashcards found! Click the button to add one!</p>
+{% endif %}
+{% for result in results %}
+<div style="background-color:green ";>
+<p style="color:white"> Question: {{result[0]}} </p>
+<strong style="color:white"> Answer: {{result[1]}}</strong>
+    </div>
+{% endfor %}
+
+</body>
+</html>
