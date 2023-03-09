@@ -21,6 +21,7 @@ def homepage():
 
 @home.route('/create', methods=['POST', 'GET'])
 def createflash():
+    duplicate = False
     if request.method == "POST":
         connect = sqlite3.connect('flashcard.db')
         cursor = connect.cursor()
@@ -29,10 +30,24 @@ def createflash():
         flashcard = Flashcard(question, answer)
         print(question)
         print(answer)
-        cursor.execute("INSERT INTO flashcard VALUES (?,?)", (flashcard.question, flashcard.answer))
+        cursor.execute("""SELECT question FROM flashcard""")
+        results = cursor.fetchall()
+
+        if results:
+            for item in results:
+                if item[0] == flashcard.question:
+                    duplicate = True
+
+
+
+
+        if duplicate ==False:
+            cursor.execute("INSERT INTO flashcard VALUES (?,?)", (flashcard.question, flashcard.answer))
+        else:
+            print("Seems you already have that value..Try again")
         connect.commit()
         connect.close()
 
         # SQL code:
 
-    return render_template("create.html")
+    return render_template("create.html", duplicate=duplicate)
