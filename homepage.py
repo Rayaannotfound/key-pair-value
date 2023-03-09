@@ -21,8 +21,9 @@ def homepage():
 
 @home.route('/create', methods=['POST', 'GET'])
 def createflash():
-    duplicate = False
+    duplicate = None
     if request.method == "POST":
+        duplicate = False
         connect = sqlite3.connect('flashcard.db')
         cursor = connect.cursor()
         question = request.form.get("Question")

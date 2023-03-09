@@ -5,17 +5,18 @@
     <title>Create Flashcard</title>
 </head>
 <body>
-{% set progress = "success" %}
-{% set color = "background-color:#04AA6D;"%}
+{% set progress = "Okay" %}
+
 {% if duplicate==True%}
 {% set progress = "failure" %}
-{% set color = "background-color:#ff9800;"%}
+
 <p style="color:red"> Something went wrong, try again</p>
-{%else%}
+{%elif duplicate== False%}
+{% set progress = "success" %}
 <p style="color:green"> Congrats! Data has been saved!</p>
 {%endif%}
 
-<div class= "alert" id="success" style={{color}}>
+<div class= "alert {{progress}}" id="success" >
   <span class="closebtn">&times;</span>
   <strong>{{progress}}!</strong>
 </div>
@@ -40,6 +41,7 @@
 .alert.success {background-color: #04AA6D;
 }
 .alert.failure {background-color: #ff9800;}
+.alert.Okay {background-color: #2196F3;}
 
 
 .closebtn {
