@@ -15,9 +15,12 @@ Welcome to Flashcards!
 {% endif %}
 {% for result in results %}
 <div style="background-color:green ";>
-<p style="color:white"> Question: {{result[0]}} </p>
-<strong style="color:white"> Answer: {{result[1]}}</strong>
-    </div>
+    <p style="color:white"> Question: {{result[0]}} </p>
+    <strong style="color:white"> Answer: {{result[1]}}</strong>
+    <a href="/delete/{{result[0]}}" class="btn btn-outline-danger btn-sm">
+        Delete
+    </a>
+</div>
 {% endfor %}
 
 </body>
