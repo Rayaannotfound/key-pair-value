@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, make_response, redirect
+from flask import Blueprint, render_template, request, make_response
 import sqlite3
 from flashcard import Flashcard
 
@@ -7,6 +7,7 @@ home = Blueprint('homepage', __name__, )
 
 @home.route('/', methods=['GET', 'POST'])
 def homepage():
+
     connect = sqlite3.connect('flashcard.db')
     cursor = connect.cursor()
     cursor.execute("""SELECT * FROM flashcard""")
@@ -35,18 +36,3 @@ def createflash():
         # SQL code:
 
     return render_template("create.html")
-
-
-@home.route('/delete/<query>')
-def deleteFlash(query):
-    print(query)
-    query = f"{query}?"
-    connect = sqlite3.connect('flashcard.db')
-    cursor = connect.execute("SELECT answer question FROM flashcard WHERE question=(?)", (query, ))
-    answer = cursor.fetchone()[0]
-    print(f'found row: question = "{query}", answer = "{answer}"')
-    cursor.execute("DELETE FROM flashcard WHERE question=(?) AND answer=(?)", (query, answer))
-    connect.commit()
-    connect.close()
-
-    return redirect('/')
