@@ -39,13 +39,13 @@ def createflash():
 
 @home.route('/delete/<query>')
 def deleteFlash(query):
-    print(query)
-    query = f"{query}?"
+    print(f'attempting to delete: "{query}" from db...')
     connect = sqlite3.connect('flashcard.db')
     cursor = connect.execute("SELECT answer question FROM flashcard WHERE question=(?)", (query, ))
     answer = cursor.fetchone()[0]
     print(f'found row: question = "{query}", answer = "{answer}"')
     cursor.execute("DELETE FROM flashcard WHERE question=(?) AND answer=(?)", (query, answer))
+    print(f'Delete operation successful.')
     connect.commit()
     connect.close()
 
