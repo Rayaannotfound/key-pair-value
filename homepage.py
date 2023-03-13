@@ -50,3 +50,21 @@ def deleteFlash(query):
     connect.close()
 
     return redirect('/')
+
+
+@home.route('/update/', methods=['POST', 'GET'])
+def updateFlash():
+    if request.method == "POST":
+        connect = sqlite3.connect('flashcard.db')
+        cursor = connect.cursor()
+        question = request.form.get("Question")
+        answer = request.form.get("Answer")
+        flashcard = Flashcard(question, answer)
+        print(flashcard.question)
+        print(flashcard.answer)
+        cursor.execute("UPDATE flashcard SET answer = (?) WHERE question = (?)", (flashcard.answer, flashcard.question))
+
+        connect.commit()
+        connect.close()
+
+    return render_template("update.html")
