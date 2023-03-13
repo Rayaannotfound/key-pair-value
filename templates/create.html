@@ -5,9 +5,20 @@
     <title>Create Flashcard</title>
 </head>
 <body>
-<div class="alert success" id="success">
+{% set progress = "Okay" %}
+
+{% if duplicate==True%}
+{% set progress = "failure" %}
+
+<p style="color:red"> Something went wrong, try again</p>
+{%elif duplicate== False%}
+{% set progress = "success" %}
+<p style="color:green"> Congrats! Data has been saved!</p>
+{%endif%}
+
+<div class= "alert {{progress}}" id="success" >
   <span class="closebtn">&times;</span>
-  <strong>Success!</strong>
+  <strong>{{progress}}!</strong>
 </div>
 
 <form  action = "/create" method = "POST">
@@ -19,8 +30,8 @@
 <style>
 .alert {
   padding: 20px;
-  background-color: #f44336;
   color: white;
+  background-color:#04AA6D;
   opacity: 1;
   transition: opacity 0.6s;
   margin-bottom: 15px;
@@ -29,6 +40,8 @@
 
 .alert.success {background-color: #04AA6D;
 }
+.alert.failure {background-color: #ff9800;}
+.alert.Okay {background-color: #2196F3;}
 
 
 .closebtn {
