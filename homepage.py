@@ -5,7 +5,8 @@ from flashcard import Flashcard
 home = Blueprint('homepage', __name__, )
 
 
-@home.route('/', methods=['GET', 'POST'])
+
+@home.route('/home', methods=['GET', 'POST'])
 def homepage():
 
     connect = sqlite3.connect('flashcard.db')
