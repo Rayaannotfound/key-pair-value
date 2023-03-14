@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Flashcard</title>
+    <title>Update Question Flashcard</title>
 </head>
 <body>
 <div class="alert success" id="success">
@@ -10,7 +10,7 @@
   <strong>Success!</strong>
 </div>
 
-<form  action = "/update/" method = "POST">
+<form  action = "/edit_question/" method = "POST">
            <label for="Questions">Choose an existing Question:</label>
 
   <select name="Question" id="Questions"required>
@@ -22,10 +22,11 @@
   </select>
 
   <br><br>
-    <p>Answer <input type = "text" name = "Answer" required/></p>
+    <p>New question <input type = "text" name = "NewQuestion" required/></p>
     <p><input onclick="successful()" type = "submit" value = "Submit" id="submitBtn"/></p>
       </form>
 <button onclick="window.location.href='/';"> Back to Home</button>
+
 <style>
 .alert {
   padding: 20px;
