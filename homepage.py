@@ -19,7 +19,7 @@ def homepage():
 
 
 @home.route('/create', methods=['POST', 'GET'])
-def createflash():
+def create_flash():
     if request.method == "POST":
         connect = sqlite3.connect('flashcard.db')
         cursor = connect.cursor()
@@ -38,7 +38,7 @@ def createflash():
 
 
 @home.route('/delete/<query>')
-def deleteFlash(query):
+def delete_flash(query):
     print(f'attempting to delete: "{query}" from db...')
     connect = sqlite3.connect('flashcard.db')
     cursor = connect.execute("SELECT answer question FROM flashcard WHERE question=(?)", (query, ))
@@ -53,20 +53,26 @@ def deleteFlash(query):
 
 
 @home.route('/update/', methods=['POST', 'GET'])
-def updateFlash():
+def update_flash():
+    connect = sqlite3.connect('flashcard.db')
+    cursor = connect.cursor()
+    cursor.execute("""SELECT question FROM flashcard""")
+    results = cursor.fetchall()
+    print(results)
     if request.method == "POST":
-        connect = sqlite3.connect('flashcard.db')
-        cursor = connect.cursor()
         question = request.form.get("Question")
         answer = request.form.get("Answer")
         flashcard = Flashcard(question, answer)
-        print(flashcard.question)
-        print(flashcard.answer)
+        print("you are smelly")
+        print("Question: " + flashcard.question)
+        print("Answer: " + flashcard.answer)
         cursor.execute("UPDATE flashcard SET answer = (?) WHERE question = (?)", (flashcard.answer, flashcard.question))
+        connect.commit()
+        connect.close()
 
+    else:
         connect.commit()
         connect.close()
     # Does the above cover situation of arriving at page by 'GET'?
 
-    return render_template("update.html")
-
+    return render_template("update.html", results=results)

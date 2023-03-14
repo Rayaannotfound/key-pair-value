@@ -11,9 +11,19 @@
 </div>
 
 <form  action = "/update/" method = "POST">
-         <p>Question <input type = "text" name = "Question" required /></p>
-         <p>Answer <input type = "text" name = "Answer" required/></p>
-         <p><input onclick="successful()" type = "submit" value = "submit" id="submitBtn"/></p>
+           <label for="Questions">Choose an existing Question:</label>
+
+  <select name="Question" id="Questions" placeholder="Select A Question" required>
+
+      <option value="" disabled selected>Select A question</option>
+      {% for result in results %}
+      <option name={{result[0]}} value={{result[0]}}>{{result[0]}}</option>
+      {% endfor %}
+  </select>
+
+  <br><br>
+    <p>Answer <input type = "text" name = "Answer" required/></p>
+    <p><input onclick="successful()" type = "submit" value = "Submit" id="submitBtn"/></p>
       </form>
 <button onclick="window.location.href='/';"> Back to Home</button>
 <style>
