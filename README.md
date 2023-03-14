@@ -17,12 +17,7 @@ Our name is called "Flashcards For all" Developers credit goes to: Alastair Hood
 ## Description
 Our specification was to create a key pair value database and the requirements were for a user to be able to: Update, delete and create from this database. So our project is to have our key as the question and the answer as the value. Users can create new flashcards and update old ones as well as deleting.
 
-## Visuals
-Here are some visuals for our flashcards application
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
+
 ## Installation
 To continue working on this application, there are some pre-requistes. 
 You should have :
@@ -30,7 +25,8 @@ Python 3
 A suitable IDE  
 Flask (most IDE's can handle the installation) but if you happen to not be in this situation, doing:
 `pip install flask`
-will work  
+will work. More info [here](https://www.geeksforgeeks.org/how-to-install-flask-in-windows/) 
+and [here](https://pypi.org/project/Flask/)
 
 Sqlite (Most applications already have it)  
 An application to view the datas database

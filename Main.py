@@ -2,15 +2,14 @@
 from flask import Flask
 
 from flashrouters import flash
-from users import user
 from questions import question
 from homepage import home
-
+from userjoin import user
 app = Flask(__name__)  # Flask constructor
-app.register_blueprint(flash)
-app.register_blueprint(user)
-app.register_blueprint(question)
+app.register_blueprint(flash) #flashcard functionality: create, delete, update
+app.register_blueprint(question) #redundant code
 app.register_blueprint(home)
+app.register_blueprint(user)
 
 
 
