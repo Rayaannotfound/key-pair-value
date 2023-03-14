@@ -68,15 +68,3 @@ def deleteFlash(query):
 
     return redirect('/')
 
-
-@home.route('/flashcards', methods=['GET', 'POST'])
-def questionPage():
-    connect = sqlite3.connect('flashcard.db')
-    cursor = connect.cursor()
-    cursor.execute("""SELECT * FROM flashcard""")
-    results = cursor.fetchall()
-    print(results)
-    connect.commit()
-    connect.close()
-
-    return render_template("flashcards.html", results=results)

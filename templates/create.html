@@ -13,7 +13,7 @@
 <p style="color:red"> Something went wrong, try again</p>
 {%elif duplicate== False%}
 {% set progress = "success" %}
-<p style="color:green"> Congrats! Flashcard has been added!</p>
+<p style="color:green"> Congrats! Data has been saved!</p>
 {%endif%}
 
 <div class= "alert {{progress}}" id="success" >
@@ -26,7 +26,6 @@
          <p>Answer <input type = "text" name = "Answer" required/></p>
          <p><input onclick="successful()" type = "submit" value = "submit" id="submitBtn"/></p>
       </form>
-<button onclick="window.location.href='/flashcards';"> Back to Flashcards</button>
 <button onclick="window.location.href='/';"> Back to Home</button>
 <style>
 .alert {
