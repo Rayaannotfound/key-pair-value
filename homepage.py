@@ -66,5 +66,7 @@ def updateFlash():
 
         connect.commit()
         connect.close()
+    # Does the above cover situation of arriving at page by 'GET'?
 
     return render_template("update.html")
+
