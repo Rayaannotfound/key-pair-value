@@ -1,16 +1,19 @@
 import sqlite3
-from flashcard import flashcard
-connect = sqlite3.connect('flashcard.db')
+connect = sqlite3.connect('../flashcard.db')
 cursor = connect.cursor()
 
 #cursor.execute("""create table flashcard
-# (
-#     question   text
-#         primary key,
-#     answer     text,
-#     questionID integer
-# )""")
+#(
+#     question text primary key,
+#     answer text,
+#)""")
 
+cursor.execute("""create table accounts
+(
+        id integer primary key autoincrement,
+        username text,
+        password text
+)""")
 
 
 

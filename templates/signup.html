@@ -8,8 +8,15 @@
 
 <h2> Signing up!</h2>
 <h3> Only a few details and you should be ready to go!</h3>
-
-<form  action = "/saved" method = "POST">
+<div class = "msg">{{ msg }}
+        {% block content %}
+            {% if msg == 'You have successfully registered!' %}
+                <a href="/home">
+                    <button>Login</button>
+                </a>
+            {% endif %}
+        {% endblock content %}
+<form  action = "/signup" method = "POST">
          <p>UserID <input type = "text" name = "Username" required /></p>
          <p>Password <input type = "text" name = "Password" required/></p>
          <input type = "submit" value = "submit" id="submitBtn"/>
