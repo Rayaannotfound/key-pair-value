@@ -64,17 +64,25 @@ def update_question_flash():
     results = cursor.fetchall()
     print("These be the questions:")
     print(results)
+    duplicate = None
     if request.method == "POST":
         question = request.form.get("Question")
         newquestion = request.form.get("NewQuestion")
-        print("oh, the question is ", question)
-        cursor.execute("UPDATE flashcard SET question = (?) WHERE question = (?)", (newquestion, question))
+
+        if (newquestion,) in results:
+            duplicate = True
+            print("Thats a duplicate value")
+
+
+        else:
+            cursor.execute("UPDATE flashcard SET question = (?) WHERE question = (?)", (newquestion, question))
+            duplicate = False
         connect.commit()
         connect.close()
     else:
         connect.commit()
         connect.close()
-    return render_template("updatequestion.html", results=results)
+    return render_template("updatequestion.html", results=results, duplicate=duplicate)
     # [
 
 

@@ -5,10 +5,18 @@
     <title>Update Question Flashcard</title>
 </head>
 <body>
-<div class="alert success" id="success">
-  <span class="closebtn">&times;</span>
-  <strong>Success!</strong>
-</div>
+{% set progress = "Okay" %} {% if duplicate==True%} {% set progress =
+    "failure" %}
+
+    {%elif duplicate== False%} {% set progress = "success" %}
+
+    {%endif%}
+
+    <div class="alert {{progress}}" id="success">
+      <span class="closebtn">&times;</span>
+      <strong>{{progress}}!</strong>
+    </div>
+
 
 <form  action = "/edit_question/" method = "POST">
            <label for="Questions">Choose an existing Question:</label>
@@ -23,9 +31,13 @@
 
   <br><br>
     <p>New question <input type = "text" name = "NewQuestion" required/></p>
+    {%if duplicate ==True%}
+    <p style="color:red";> Failed to change question, you can't have a question with the same title</p>
+    {%endif%}
+
     <p><input onclick="successful()" type = "submit" value = "Submit" id="submitBtn"/></p>
       </form>
-<button onclick="window.location.href='/';"> Back to Home</button>
+<button onclick="window.location.href='/flashcards';"> Back to Home</button>
 
 <style>
 .alert {
@@ -40,6 +52,12 @@
 
 .alert.success {background-color: #04AA6D;
 }
+.alert.failure {
+        background-color: #ff9800;
+      }
+      .alert.Okay {
+        background-color: #2196f3;
+      }
 
 
 .closebtn {
