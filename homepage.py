@@ -6,18 +6,9 @@ home = Blueprint('homepage', __name__, )
 
 
 
-@home.route('/home', methods=['GET', 'POST'])
+@home.route('/home')
 def homepage():
-
-    connect = sqlite3.connect('flashcard.db')
-    cursor = connect.cursor()
-    cursor.execute("""SELECT * FROM flashcard""")
-    results = cursor.fetchall()
-    print(results)
-    connect.commit()
-    connect.close()
-
-    return render_template("homepage.html", results=results)
+    return render_template("homepage.html")
 
 
 @home.route('/create', methods=['POST', 'GET'])
@@ -66,5 +57,17 @@ def deleteFlash(query):
     connect.commit()
     connect.close()
 
-    return redirect('/')
+    return redirect('/flashcards')
+
+@home.route('/flashcards')
+def view_flash():
+    connect = sqlite3.connect('flashcard.db')
+    cursor = connect.cursor()
+    cursor.execute("""SELECT * FROM flashcard""")
+    results = cursor.fetchall()
+    print(results)
+    connect.commit()
+    connect.close()
+
+    return render_template("flashcards.html", results=results)
 
