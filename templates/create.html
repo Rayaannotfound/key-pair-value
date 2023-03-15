@@ -1,75 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Create Flashcard</title>
-</head>
-<body>
-<div class="alert success" id="success">
-  <span class="closebtn">&times;</span>
-  <strong>Success!</strong>
-</div>
+  </head>
+  <body>
+    {% set progress = "Okay" %} {% if duplicate==True%} {% set progress =
+    "failure" %}
 
-<form  action = "/create" method = "POST">
-         <p>Question <input type = "text" name = "Question" required /></p>
-         <p>Answer <input type = "text" name = "Answer" required/></p>
-         <p><input onclick="successful()" type = "submit" value = "submit" id="submitBtn"/></p>
-      </form>
-<button onclick="window.location.href='/';"> Back to Home</button>
-<style>
-.alert {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-  opacity: 1;
-  transition: opacity 0.6s;
-  margin-bottom: 15px;
-  display: none;
-}
+    <p style="color: red">Something went wrong, try again</p>
+    {%elif duplicate== False%} {% set progress = "success" %}
+    <p style="color: green">Congrats! Flashcard has been added!!</p>
+    {%endif%}
 
-.alert.success {background-color: #04AA6D;
-}
+    <div class="alert {{progress}}" id="success">
+      <span class="closebtn">&times;</span>
+      <strong>{{progress}}!</strong>
+    </div>
 
+    <form action="/create" method="POST">
+      <p>Question <input type="text" name="Question" required /></p>
+      <p>Answer <input type="text" name="Answer" required /></p>
+      <p>
+        <input
+          onclick="successful()"
+          type="submit"
+          value="submit"
+          id="submitBtn"
+        />
+      </p>
+    </form>
+    <button onclick="window.location.href='/flashcards';">Back to Flashcards</button>
+    <button onclick="window.location.href='/';">Back to Home</button>
+    <style>
+      .alert {
+        padding: 20px;
+        color: white;
+        background-color: #04aa6d;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        display: none;
+      }
 
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+      .alert.success {
+        background-color: #04aa6d;
+      }
+      .alert.failure {
+        background-color: #ff9800;
+      }
+      .alert.Okay {
+        background-color: #2196f3;
+      }
 
-.closebtn:hover {
-  color: black;
-}
-</style>
+      .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
 
+      .closebtn:hover {
+        color: black;
+      }
+    </style>
 
+    <script>
+      function successful() {
+        document.getElementById('success').style.display = 'block';
 
+        var close = document.getElementsByClassName('closebtn');
+        var i;
 
-
-<script>
-function successful(){
- document.getElementById("success").style.display="block";
-
-var close = document.getElementsByClassName("closebtn");
-var i;
-
-for (i = 0; i < close.length; i++) {
-  close[i].onclick = function(){
-    var div = this.parentElement;
-    div.style.opacity = "0";
-    setTimeout(function(){ div.style.display = "none"; }, 600);
-  }
-}
-}
-</script>
-
-</body>
-
-
-
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.opacity = '0';
+            setTimeout(function () {
+              div.style.display = 'none';
+            }, 600);
+          };
+        }
+      }
+    </script>
+  </body>
 </html>

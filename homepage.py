@@ -5,22 +5,16 @@ from flashcard import Flashcard
 home = Blueprint('homepage', __name__, )
 
 
-@home.route('/', methods=['GET', 'POST'])
+@home.route('/home')
 def homepage():
-    connect = sqlite3.connect('flashcard.db')
-    cursor = connect.cursor()
-    cursor.execute("""SELECT * FROM flashcard""")
-    results = cursor.fetchall()
-    print(results)
-    connect.commit()
-    connect.close()
-
-    return render_template("homepage.html", results=results)
+    return render_template("homepage.html")
 
 
 @home.route('/create', methods=['POST', 'GET'])
-def create_flash():
+def createflash():
+    duplicate = None
     if request.method == "POST":
+        duplicate = False
         connect = sqlite3.connect('flashcard.db')
         cursor = connect.cursor()
         question = request.form.get("Question")
@@ -28,13 +22,23 @@ def create_flash():
         flashcard = Flashcard(question, answer)
         print(question)
         print(answer)
-        cursor.execute("INSERT INTO flashcard VALUES (?,?)", (flashcard.question, flashcard.answer))
+        cursor.execute("""SELECT question FROM flashcard""")
+        results = cursor.fetchall()
+
+        if results:
+            for item in results:
+                if item[0] == flashcard.question:
+                    duplicate = True
+
+        if not duplicate:
+            cursor.execute("INSERT INTO flashcard VALUES (?,?)", (flashcard.question, flashcard.answer))
+        else:
+            print("Seems you already have that value..Try again")
         connect.commit()
         connect.close()
 
         # SQL code:
-
-    return render_template("create.html")
+    return render_template("create.html", duplicate=duplicate)
 
 
 @home.route('/delete/<query>')
@@ -49,7 +53,7 @@ def delete_flash(query):
     connect.commit()
     connect.close()
 
-    return redirect('/')
+    return redirect('/flashcards')
 
 
 @home.route('/edit_question/', methods=['POST', 'GET'])
@@ -101,3 +105,16 @@ def update_flash():
     # Does the above cover situation of arriving at page by 'GET'?
 
     return render_template("update.html", results=results)
+
+
+@home.route('/flashcards')
+def view_flash():
+    connect = sqlite3.connect('flashcard.db')
+    cursor = connect.cursor()
+    cursor.execute("""SELECT * FROM flashcard""")
+    results = cursor.fetchall()
+    print(results)
+    connect.commit()
+    connect.close()
+
+    return render_template("flashcards.html", results=results)
