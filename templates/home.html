@@ -6,10 +6,11 @@
 </head>
 <body>
 <p> Ah finally the correct part of the page good grief</p>
-<form action = '/setcookie' method="POST">
-
-    <p> <h3> Enter a Username</h3></p>
-    <p> <input type = 'text' name = 'username'/></p>
+<form action = '/login' method="POST">
+    <p> <h3>Please login</h3></p>
+    <div class = 'msg'>{{ msg }}</div>
+    <p> username <input type = 'text' name = 'Username'/></p>
+    <p> password <input type = 'text' name = 'Password'/></p>
     <p> <input type = 'submit' value="Login"/></p>
 </form>
 </body>
