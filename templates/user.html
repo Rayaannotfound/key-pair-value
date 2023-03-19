@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ url_for('static', filename='templates/user.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
     <title>How about creating an account?</title>
 </head>
 <body>
-<p> Hi there and thankyou for using <strong> Flashcards </strong> we strongly encourage you to create an account for optimal experience</p>
+{% include 'navbar.html' %}
+<p> Hi there and thank you for using <strong> Flashcards </strong> we strongly encourage you to create an account for optimal experience</p>
 <p> Click the button here to Login</p>
 <button class="averagebutton" onclick="window.location.href='/login';"> Login</button>
 <p> If you're new, click here</p>

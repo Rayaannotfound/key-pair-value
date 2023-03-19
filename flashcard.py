@@ -4,6 +4,5 @@ class Flashcard:
         self.question = question
         self.answer = answer
 
-
     def __repr__(self):
         return "Flashcard('{}', '{}', {})".format(self.question, self.answer)

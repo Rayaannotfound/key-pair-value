@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Signing up!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
 </head>
 <body>
-
+{% include 'navbar.html' %}
 <h2> Signing up!</h2>
 <h3> Only a few details and you should be ready to go!</h3>
 <div class = "msg">{{ msg }}
