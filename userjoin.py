@@ -60,10 +60,10 @@ def login():
                 msg = 'Logged in successfully !'
             else:
                 msg = 'Incorrect username / password combination!'
-            return render_template('home.html', msg=msg)
+            return render_template('login.html', msg=msg)
         else:
             msg = 'Incorrect username / password combination !'
-    return render_template('home.html', msg=msg)
+    return render_template('login.html', msg=msg)
 
 
 @user_join.route('/signup', methods=['POST', 'GET'])
