@@ -66,6 +66,7 @@ def login():
             if bcrypt.check_password_hash(account[1], password):
                 login_user(userObj(account[0]))
                 msg = 'Logged in successfully !'
+                return render_template('homepage.html', msg=msg)
             else:
                 msg = 'Incorrect username / password combination!'
             return render_template('login.html', msg=msg)
