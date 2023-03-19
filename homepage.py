@@ -5,7 +5,6 @@ from flashcard import Flashcard
 home = Blueprint('homepage', __name__, )
 
 
-
 @home.route('/home')
 def homepage():
     return render_template("homepage.html")
@@ -31,10 +30,7 @@ def createflash():
                 if item[0] == flashcard.question:
                     duplicate = True
 
-
-
-
-        if duplicate ==False:
+        if not duplicate:
             cursor.execute("INSERT INTO flashcard VALUES (?,?)", (flashcard.question, flashcard.answer))
         else:
             print("Seems you already have that value..Try again")
@@ -46,7 +42,7 @@ def createflash():
 
 
 @home.route('/delete/<query>')
-def deleteFlash(query):
+def delete_flash(query):
     print(f'attempting to delete: "{query}" from db...')
     connect = sqlite3.connect('flashcard.db')
     cursor = connect.execute("SELECT answer question FROM flashcard WHERE question=(?)", (query,))
@@ -59,6 +55,66 @@ def deleteFlash(query):
 
     return redirect('/flashcards')
 
+
+@home.route('/edit_question/', methods=['POST', 'GET'])
+def update_question_flash():
+    connect = sqlite3.connect('flashcard.db')
+    cursor = connect.cursor()
+    cursor.execute("""SELECT question FROM flashcard""")
+    results = cursor.fetchall()
+    print("These be the questions:")
+    print(results)
+    duplicate = None
+    if request.method == "POST":
+        question = request.form.get("Question")
+        newquestion = request.form.get("NewQuestion")
+
+        if (newquestion,) in results:
+            duplicate = True
+            print("Thats a duplicate value")
+
+
+        else:
+            cursor.execute("UPDATE flashcard SET question = (?) WHERE question = (?)", (newquestion, question))
+            duplicate = False
+        connect.commit()
+        connect.close()
+    else:
+        connect.commit()
+        connect.close()
+    return render_template("updatequestion.html", results=results, duplicate=duplicate)
+    # [
+
+
+@home.route('/update/', methods=['POST', 'GET'])
+def update_flash():
+    connect = sqlite3.connect('flashcard.db')
+    cursor = connect.cursor()
+    cursor.execute("""SELECT question FROM flashcard""")
+    results = cursor.fetchall()
+    print("These be the questions:")
+    print(results)
+    if request.method == "POST":
+        question = request.form.get("Question")
+        answer = request.form.get("Answer")
+        flashcard = Flashcard(question, answer)
+        print("Results after form results: ")
+        print(results)
+        print("Question: " + flashcard.question)
+        print("Answer: " + flashcard.answer)
+        cursor.execute("UPDATE flashcard SET answer = (?) WHERE question = (?)", (flashcard.answer, flashcard.question))
+        connect.commit()
+        connect.close()
+    # [('Whats 9 + 10?q=', '21'), ('How can you perform decompression?', "I don't know")]
+    # [('How can you perform decompression?',), ('Whats 9 + 10?q=',)]
+    else:
+        connect.commit()
+        connect.close()
+    # Does the above cover situation of arriving at page by 'GET'?
+
+    return render_template("update.html", results=results)
+
+
 @home.route('/flashcards')
 def view_flash():
     connect = sqlite3.connect('flashcard.db')
@@ -70,4 +126,3 @@ def view_flash():
     connect.close()
 
     return render_template("flashcards.html", results=results)
-

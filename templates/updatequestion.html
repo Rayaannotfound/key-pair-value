@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Question Flashcard</title>
+</head>
+<body>
+{% set progress = "Okay" %} {% if duplicate==True%} {% set progress =
+    "failure" %}
+
+    {%elif duplicate== False%} {% set progress = "success" %}
+
+    {%endif%}
+
+    <div class="alert {{progress}}" id="success">
+      <span class="closebtn">&times;</span>
+      <strong>{{progress}}!</strong>
+    </div>
+
+
+<form  action = "/edit_question/" method = "POST">
+           <label for="Questions">Choose an existing Question:</label>
+
+  <select name="Question" id="Questions"required>
+
+      <option value="" disabled selected>Select A question</option>
+      {% for result in results %}
+      <option name={{result[0]}} value="{{result[0]}}">{{result[0]}}</option>
+      {% endfor %}
+  </select>
+
+  <br><br>
+    <p>New question <input type = "text" name = "NewQuestion" required/></p>
+    {%if duplicate ==True%}
+    <p style="color:red";> Failed to change question, you can't have a question with the same title</p>
+    {%endif%}
+
+    <p><input onclick="successful()" type = "submit" value = "Submit" id="submitBtn"/></p>
+      </form>
+<button onclick="window.location.href='/flashcards';"> Back to Home</button>
+
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.alert.success {background-color: #04AA6D;
+}
+.alert.failure {
+        background-color: #ff9800;
+      }
+      .alert.Okay {
+        background-color: #2196f3;
+      }
+
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+
+
+
+
+
+<script>
+function successful(){
+ document.getElementById("success").style.display="block";
+
+var close = document.getElementsByClassName("closebtn");
+var i;
+
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+}
+</script>
+
+</body>
+
+
+
+</html>

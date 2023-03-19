@@ -8,12 +8,26 @@ cursor = connect.cursor()
 #     answer text,
 #)""")
 
+#cursor.execute("""create table accounts
+#(
+#        id integer primary key autoincrement,
+#        username text,
+#        password text
+#)""")
+
+# database DDL from actual database
 cursor.execute("""create table accounts
 (
-        id integer primary key autoincrement,
-        username text,
-        password text
+    username text not null primary key,
+    password text
 )""")
+
+cursor.execute("""create table flashcard
+(
+    question text primary key,
+    answer   text
+)""")
+
 
 
 
