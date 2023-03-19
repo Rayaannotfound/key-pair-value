@@ -2,7 +2,7 @@
 from flask import Flask, session
 from flashrouters import flash
 from homepage import home
-from userjoin import user_join
+from userjoin import user_join, init_flask_login
 from database.database import Database
 
 app = Flask(__name__)  # Flask constructor
@@ -20,6 +20,7 @@ def main():
     app.register_blueprint(flash)  # flashcard functionality: create, delete, update
     app.register_blueprint(home)
     app.register_blueprint(user_join)
+    init_flask_login(app)
     database = Database('flashcard.db')
     database.db_initialise()
     app.run(debug=True)

@@ -1,11 +1,13 @@
-from flask import Blueprint, render_template, request, make_response
+from flask import Blueprint, render_template, request, make_response, redirect
 from database.database import Database
 from flashcard import Flashcard
+from flask_login import login_required
 
 flash = Blueprint('flashrouters', __name__, )
 
 
 @flash.route('/edit_question/', methods=['POST', 'GET'])
+@login_required
 def update_question_flash():
     results = Database.get_instance().run_query("""SELECT question FROM flashcard""")
     print("These are the questions:")
@@ -25,6 +27,7 @@ def update_question_flash():
 
 
 @flash.route('/create', methods=['POST', 'GET'])
+@login_required
 def create_flash():
     duplicate = None
     if request.method == "POST":
@@ -50,6 +53,7 @@ def create_flash():
 
 
 @flash.route('/delete/<query>')
+@login_required
 def delete_flash(query):
     print(f'attempting to delete: "{query}" from db...')
     results = Database.get_instance().run_query("SELECT answer, question FROM flashcard WHERE question=(?)", (query,))
@@ -62,6 +66,7 @@ def delete_flash(query):
 
 
 @flash.route('/update/', methods=['POST', 'GET'])
+@login_required
 def update_flash():
     results = Database.get_instance().run_query("""SELECT question FROM flashcard""")
     print("These are the questions:")
@@ -83,6 +88,7 @@ def update_flash():
 
 
 @flash.route('/flashcards')
+@login_required
 def view_flash():
     results = Database.get_instance().run_query("""SELECT * FROM flashcard""")
     print(results)
