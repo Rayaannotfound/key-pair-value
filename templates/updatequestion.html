@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
     <title>Update Question Flashcard</title>
 </head>
 <body>
+{% include 'navbar.html' %}
 {% set progress = "Okay" %} {% if duplicate==True%} {% set progress =
     "failure" %}
 

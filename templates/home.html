@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
 </head>
 <body>
-<p> Ah finally the correct part of the page good grief</p>
+{% include 'navbar.html' %}
 <form action = '/login' method="POST">
     <p> <h3>Please login</h3></p>
     <div class = 'msg'>{{ msg }}</div>
