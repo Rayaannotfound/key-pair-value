@@ -10,6 +10,6 @@ def homepage():
     return render_template("homepage.html")
 
 
-@home.route('/home')
+@home.route('/login')
 def hello_name():
-    return render_template("home.html")
+    return render_template("login.html")
