@@ -3,19 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <title>Welcome to the Homepage</title>
+<!--      External x svg icon for deletion-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
   </head>
   <body>
+<!--  navbar-->
   {% include 'navbar.html' %}
   <h1>Welcome to Homepage!</h1>
 
 <button onclick="window.location.href='/create';"> Create new flashcard!</button>
 <button onclick="window.location.href='/update';"> Update existing flashcard!</button>
 <button onclick="window.location.href='/edit_question';"> Update existing flashcards Question!</button>
+<!--  Shows a message if there are no flashcards-->
 {% if not results %}
 <p> No flashcards found! Click the button to add one!</p>
 {% endif %}
+<!--  displays the results-->
 {% for result in results %}
 <div style="background-color:green;";>
     <a href="/delete/{{result[0].replace('?','%3F')}}" class="btn btn-outline-danger btn-sm">

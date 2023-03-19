@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
 </head>
 <body>
+<!--navbar-->
 {% include 'navbar.html' %}
 <form action = '/login' method="POST">
     <p> <h3>Please login</h3></p>
+<!--    msg is the message that appears when you log in-->
     <div class = 'msg'>{{ msg }}</div>
     <p> username <input type = 'text' name = 'Username'/></p>
     <p> password <input type = 'password' name = 'Password'/></p>
