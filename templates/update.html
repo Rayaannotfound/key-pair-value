@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
 </head>
 <body>
+<!--navbar-->
 {% include 'navbar.html' %}
+<!--success message-->
 <div class="alert success" id="success">
   <span class="closebtn">&times;</span>
   <strong>Success!</strong>
@@ -15,6 +17,7 @@
 <form  action = "/update/" method = "POST">
            <label for="Questions">Choose an existing Question:</label>
 
+<!--    dropdown box with questions-->
   <select name="Question" id="Questions"required>
 
       <option value="" disabled selected>Select A question</option>
@@ -62,7 +65,7 @@
 
 
 
-
+<!--success message-->
 <script>
 function successful(){
  document.getElementById("success").style.display="block";

@@ -6,15 +6,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
   </head>
   <body>
+<!--   Navigation bar-->
     {% include 'navbar.html' %}
+
+<!--Sets the colour and style of the alert notification when creating a flashcard-->
     {% set progress = "Okay" %} {% if duplicate==True%} {% set progress =
     "failure" %}
-
+<!--Handles the result from creating a flashcard-->
     <p style="color: red">Something went wrong, try again</p>
     {%elif duplicate== False%} {% set progress = "success" %}
     <p style="color: green">Congrats! Flashcard has been added!!</p>
     {%endif%}
 
+<!--Alert-->
     <div class="alert {{progress}}" id="success">
       <span class="closebtn">&times;</span>
       <strong>{{progress}}!</strong>
@@ -71,7 +75,9 @@
       }
     </style>
 
+<!--Handles the dynamic appearance of the alert-->
     <script>
+
       function successful() {
         document.getElementById('success').style.display = 'block';
 

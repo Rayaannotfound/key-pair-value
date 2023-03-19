@@ -6,9 +6,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='webstyles.css') }}">
 </head>
 <body>
+<!--navbar-->
 {% include 'navbar.html' %}
 <h2> Signing up!</h2>
 <h3> Only a few details and you should be ready to go!</h3>
+
+<!--message that appears when you attempt to register and makes login appear-->
 <div class = "msg">{{ msg }}
         {% block content %}
             {% if msg == 'You have successfully registered!' %}

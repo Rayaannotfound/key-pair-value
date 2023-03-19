@@ -6,7 +6,10 @@
     <title>Update Question Flashcard</title>
 </head>
 <body>
+<!--navbar-->
 {% include 'navbar.html' %}
+
+<!--alert message can change depending on the result from updating-->
 {% set progress = "Okay" %} {% if duplicate==True%} {% set progress =
     "failure" %}
 
@@ -25,6 +28,7 @@
 
   <select name="Question" id="Questions"required>
 
+<!--      dropdown box with questions-->
       <option value="" disabled selected>Select A question</option>
       {% for result in results %}
       <option name={{result[0]}} value="{{result[0]}}">{{result[0]}}</option>
@@ -33,10 +37,12 @@
 
   <br><br>
     <p>New question <input type = "text" name = "NewQuestion" required/></p>
+<!--    handles the message that appears if you type in a duplicate-->
     {%if duplicate ==True%}
     <p style="color:red";> Failed to change question, you can't have a question with the same title</p>
     {%endif%}
 
+<!--    handles the dynamic code behind the alert notification-->
     <p><input onclick="successful()" type = "submit" value = "Submit" id="submitBtn"/></p>
       </form>
 <button onclick="window.location.href='/flashcards';"> Back to Home</button>
